@@ -47,10 +47,14 @@ alytavares@gmail.com;LOGIN_SUCESSO;2026-07-03 10:35:52
 alytavares@gmail.com;LOGIN_SUCESSO;2026-07-03 10:39:21
 alytavares@gmail.com;LOGIN_SUCESSO;2026-07-03 10:47:46
 alytavares@gmail.com;LOGIN_SUCESSO;2026-07-03 10:53:22
+<<<<<<< HEAD
+alytavares@gmail.com;LOGIN_SUCESSO;2026-07-03 11:22:37
+=======
 alytavares@gmail.com;LOGIN_SUCESSO;2026-07-03 10:57:53
 alytavares@gmail.com;LOGIN_SUCESSO;2026-07-03 11:09:15
 alytavares@gmail.com;LOGIN_SUCESSO;2026-07-03 11:11:28
 alytavares@gmail.com;LOGIN_SUCESSO;2026-07-03 11:23:38
+<<<<<<< HEAD
 rececao@hospita.cv;LOGIN_FALHOU;2026-07-03 11:40:42
 rececao@hospital.cv;LOGIN_FALHOU;2026-07-03 11:49:31
 rececao@hospital.cv;LOGIN_FALHOU;2026-07-03 11:50:03
@@ -62,3 +66,6 @@ rececao@hospital.cv;LOGIN_FALHOU;2026-07-03 11:58:34
 rececao@hospital.cv;LOGIN_FALHOU;2026-07-03 12:02:24
 rececao@hospital.cv;LOGIN_FALHOU;2026-07-03 12:02:29
 rececao@hospital.cv;LOGIN_FALHOU;2026-07-03 12:03:28
+=======
+>>>>>>> 76b8a94409047450c2a5c23c27e79617786c50f3
+>>>>>>> 8e339d8235d1c4c186d9416cd541b5929c4606d5
