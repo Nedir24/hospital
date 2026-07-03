@@ -9,3 +9,5 @@ Mileida;mileydalopes6@gmail.com;765432;4321
 Helio Lopes;heliolopes@gmail.com;9876543;heliolopes
 bsamara;btavares.l23@us.edu.cv;9725189;teste2
 aly Tavares;23456789GF;2006-06-07;Feminino;9876543;alytavares@gmail.com;teste
+Edilça Suraia Gomes Pereira;123456789;2005-10-20;Feminino;9753759;epereira.l23@us.edu.cv;123456
+Jorge Henrique Pires Tavares;987654321;1985-01-15;Masculino;0000000;jose.tavares@us.edu.cv;654321
