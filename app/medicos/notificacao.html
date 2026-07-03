@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Médico - Pacientes</title>
+    <title>Médico - Notificações</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Segoe UI", sans-serif; }
@@ -22,14 +22,12 @@
         .header h2 { font-size: 20px; color: #333; }
         .user-box { display: flex; align-items: center; gap: 15px; color: #555; }
         .header-line { margin-left: -25px; margin-right: -25px; height: 1px; background: rgba(0,0,0,0.08); margin-bottom: 25px; }
-        .table-card { background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        .table-card h3 { font-size: 16px; margin-bottom: 15px; color: #333; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 12px 15px; border-bottom: 1px solid #eee; font-size: 14px; text-align: left; }
-        th { color: #666; background: #f8f9fa; font-weight: 600; }
-        tr:hover td { background: #fbfcfe; }
-        .btn-view { background: #0b2a4a; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 500; transition: 0.2s; }
-        .btn-view:hover { background: #163a63; }
+        
+        .alert-item { background: #fff; padding: 15px 20px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.03); border-left: 4px solid #ffc107; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
+        .alert-item.urgente { border-left-color: #dc3545; background: #fff5f5; }
+        .alert-text h4 { font-size: 15px; color: #333; margin-bottom: 4px; }
+        .alert-text p { font-size: 13px; color: #666; }
+        .time { font-size: 12px; color: #999; }
     </style>
 </head>
 <body>
@@ -46,22 +44,25 @@
 
 <div class="main">
     <div class="header">
-        <h2>Meus Pacientes Ativos</h2>
+        <h2>Centro de Notificações Internas</h2>
         <div class="user-box"><i class="fa fa-user-circle"></i> <span>Dr. Mendes</span></div>
     </div>
     <div class="header-line"></div>
 
-    <div class="table-card">
-        <h3>Fichas Clínicas sob Responsabilidade</h3>
-        <table>
-            <thead>
-                <tr><th>Nome</th><th>Diagnóstico Clínico Principal</th><th>Última Consulta</th><th>Ações</th></tr>
-            </thead>
-            <tbody>
-                <tr><td><b>Carlos Alberto</b></td><td>Insuficiência Cardíaca Leve</td><td>02/07/2026</td><td><button class="btn-view"><i class="fa fa-folder-open"></i> Abrir Histórico</button></td></tr>
-                <tr><td><b>Lolo Medeiros</b></td><td>Check-up Geral / Rotina</td><td>30/06/2026</td><td><button class="btn-view"><i class="fa fa-folder-open"></i> Abrir Histórico</button></td></tr>
-            </tbody>
-        </table>
+    <div class="alert-item urgente">
+        <div class="alert-text">
+            <h4>Fila de Prioridade Modificada</h4>
+            <p>O paciente <b>Carlos Alberto</b> foi priorizado para o seu turno clínico urgente.</p>
+        </div>
+        <span class="time">Há 5 min</span>
+    </div>
+
+    <div class="alert-item">
+        <div class="alert-text">
+            <h4>Consulta Cancelada pela Receção</h4>
+            <p>A marcação de <b>Aline Santos</b> para o dia 11/07 foi desmarcada do sistema.</p>
+        </div>
+        <span class="time">Há 2 horas</span>
     </div>
 </div>
 

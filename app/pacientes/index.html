@@ -8,7 +8,9 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
 <style>
+
 /* RESET */
+
 *{
 margin:0;
 padding:0;
@@ -77,7 +79,7 @@ align-items:center;
 gap:10px;
 border-radius:8px;
 transition:0.3s;
-font-size:16px; /* Ajustado de 18px para melhor legibilidade com textos longos */
+font-size:18px;
 }
 
 .sidebar a:hover{
@@ -92,9 +94,6 @@ color:#fff;
   gap:10px;
   padding:12px 15px;
   border-radius:8px;
-  text-decoration:none;
-  margin:5px 0;
-  transition:0.3s;
 }
 .logout:hover{
   background:#163a63;
@@ -147,7 +146,6 @@ gap:10px;
 padding:10px 14px;
 border-radius:16px;
 box-shadow:0 14px 32px rgba(15, 28, 59, 0.08);
-background:#fff;
 }
 
 .user-profile .fa-user-circle{
@@ -182,58 +180,6 @@ font-size:12px;
 color:#6f7287;
 }
 
-/* HERO CALL TO ACTION (TRIAGEM) */
-.hero-card{
-background: linear-gradient(135deg, #0b2a4a, #163a63);
-color: #fff;
-padding: 22px;
-border-radius: 16px;
-box-shadow: 0 5px 18px rgba(0,0,0,0.08);
-margin-bottom: 25px;
-display: flex;
-justify-content: space-between;
-align-items: center;
-gap: 20px;
-}
-
-.hero-content{
-flex: 1;
-}
-
-.hero-title{
-font-size: 22px;
-font-weight: 700;
-margin-bottom: 8px;
-color: #fff;
-}
-
-.hero-subtitle{
-font-size: 14px;
-color: #e0e6ed;
-line-height: 1.5;
-}
-
-.hero-btn{
-background: #28a745;
-color: white;
-text-decoration: none;
-padding: 12px 24px;
-border-radius: 8px;
-font-weight: bold;
-font-size: 15px;
-transition: 0.3s;
-box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
-display: flex;
-align-items: center;
-gap: 8px;
-white-space: nowrap;
-}
-
-.hero-btn:hover{
-background: #218838;
-transform: translateY(-2px);
-}
-
 /* CARDS */
 .cards{
 display:grid;
@@ -266,16 +212,40 @@ background:#fff;
 padding:20px;
 border-radius:12px;
 box-shadow:0 4px 12px rgba(0,0,0,0.05);
-margin-bottom: 25px;
 }
 
 .table-card h3{
 margin-bottom:15px;
-color: #1f3566;
-font-size: 18px;
 }
 
-/* ALERTS & NOTIFICATIONS GRID */
+.hero-card{
+background:#fff;
+padding:22px;
+border-radius:16px;
+box-shadow:0 5px 18px rgba(0,0,0,0.08);
+margin-bottom:20px;
+}
+
+.hero-title{
+font-size:22px;
+font-weight:700;
+margin-bottom:10px;
+color:#222;
+}
+
+.hero-subtitle{
+font-size:16px;
+color:#555;
+margin-bottom:14px;
+}
+
+.hero-detail{
+font-size:16px;
+color:#333;
+margin-bottom:8px;
+}
+
+/* ALERTS */
 .alerts-grid{
 display:grid;
 grid-template-columns:1.2fr 1fr;
@@ -336,7 +306,7 @@ border-collapse:collapse;
 }
 
 th,td{
-padding:14px 12px;
+padding:12px;
 border-bottom:1px solid #eee;
 font-size:14px;
 }
@@ -344,22 +314,7 @@ font-size:14px;
 th{
 text-align:left;
 color:#666;
-font-weight: 600;
-background: #fdfdfd;
 }
-
-/* CORES DE PRIORIDADE DA TRIAGEM */
-.prioridade{
-padding:4px 10px;
-border-radius:20px;
-font-size:12px;
-font-weight: bold;
-display: inline-block;
-}
-.prioridade.urgente { background: #f8d7da; color: #721c24; }
-.prioridade.alta { background: #fff3cd; color: #856404; }
-.prioridade.media { background: #dce9ff; color: #004085; }
-.prioridade.baixa { background: #e2e3e5; color: #383d41; }
 
 /* STATUS */
 .status{
@@ -367,22 +322,19 @@ padding:4px 10px;
 border-radius:20px;
 font-size:12px;
 }
+
 .pending{background:#fff3cd;color:#856404;}
 .done{background:#d4edda;color:#155724;}
 .cancel{background:#f8d7da;color:#721c24;}
 
 /* BUTTONS */
-button, .btn-action{
-padding:6px 12px;
+button{
+padding:6px 10px;
 border:none;
 border-radius:6px;
 cursor:pointer;
 font-size:12px;
 margin-right:5px;
-text-decoration: none;
-display: inline-flex;
-align-items: center;
-gap:4px;
 }
 
 .confirm{background:#28a745;color:#fff;}
@@ -394,14 +346,17 @@ gap:4px;
 <script src="../js/consultas.js"></script>
 <body>
 
+<!-- SIDEBAR -->
 <div class="sidebar">
     <div class="logo">
         <img src="../assets/img/logo.png" alt="Logo"> HAN
     </div>
     <a href="index.html">🏠 Início</a>
-    <a href="marcar_consulta.html">➕ Marcar Consulta / Triagem</a>
     <a href="consultas.html">📋 Minhas Consultas</a>
-    <a href="medicos.html">👨‍⚕️ Corpo Médico</a>
+    <a href="reagendamentos.html">🔄 Reagendar</a>
+    <a href="cancelamentos.html">❌ Cancelar</a>
+    <a href="consultas.html#historico">📜 Histórico</a>
+    <a href="medicos.html">👨‍⚕️ Médicos</a>
     <a href="notificacoes.html">🔔 Notificações</a>
     <a href="perfil.html">👤 Meu Perfil</a>
     <div class="bottom">
@@ -410,108 +365,77 @@ gap:4px;
     </div>
 </div>
 
+<!-- MAIN -->
 <div class="main">
 
-    <div class="header">
-        <h2>Painel Principal</h2>
+<!-- HEADER -->
+<div class="header">
 
-        <div class="user-box">
-            <i class="fa fa-bell"></i>
-            <div class="user-profile">
-                <i class="fa fa-user-circle"></i>
-                <div class="user-info">
-                    <span id="usuarioNome">Pacientes</span>
-                    <span id="usuarioEmail"></span>
-                </div>
+    <h2>Painel Principal</h2>
+
+    <div class="user-box">
+        <i class="fa fa-bell"></i>
+        <div class="user-profile">
+            <i class="fa fa-user-circle"></i>
+            <div class="user-info">
+                <span id="usuarioNome">Pacientes</span>
+                <span id="usuarioEmail"></span>
             </div>
-            <i class="fa fa-chevron-down"></i>
         </div>
+        <i class="fa fa-chevron-down"></i>
     </div>
 
-    <div class="header-line"></div>
+</div>
 
-    <div id="dashboardResumo"></div>
+<div class="header-line"></div>
 
-    <div class="hero-card">
-        <div class="hero-content">
-            <h3 class="hero-title">Precisa de Consulta Médica?</h3>
-            <p class="hero-subtitle">Faça a sua marcação online em poucos minutos. O nosso sistema realiza uma triagem automática dos seus sintomas para garantir o atendimento com a prioridade certa.</p>
-        </div>
-        <a href="marcar_consulta.html" class="hero-btn">
-            <i class="fa fa-heartbeat"></i> Iniciar Marcação & Triagem
-        </a>
+<div id="dashboardResumo"></div>
+
+<div class="hero-card" style="background: linear-gradient(135deg, #0b2a4a, #163a63); color: white; padding: 25px; border-radius: 12px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center;">
+    <div>
+        <h2 style="margin-bottom: 8px;">Precisa de atendimento médico?</h2>
+        <p style="font-size: 14px; opacity: 0.9;">Inicie a sua marcação digital. O nosso sistema irá avaliar os seus sintomas para lhe dar a prioridade clínica adequada.</p>
     </div>
+    <a href="marcar_consulta.html" style="background: #28a745; color: white; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; font-size: 15px; transition: 0.3s; box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);">
+        <i class="fa fa-plus-circle"></i> Marcar Consulta / Triagem
+    </a>
+</div>
 
-    <div class="cards">
-        <div class="card">
-            <h4>Próximas consultas</h4>
-            <p>0</p>
-        </div>
+<!-- CARDS -->
+<div class="cards">
 
-        <div class="card">
-            <h4>Consultas marcadas</h4>
-            <p>0</p>
-        </div>
+<div class="card">
+<h4>Próximas consultas</h4>
+<p>0</p>
+</div>
 
-        <div class="card">
-            <h4>Consultas realizadas</h4>
-            <p>0</p>
-        </div>
+<div class="card">
+<h4>Consultas marcadas</h4>
+<p>0</p>
+</div>
 
-        <div class="card">
-            <h4>Notificações</h4>
-            <p id="notificacoesCount">0</p>
-        </div>
+<div class="card">
+<h4>Consultas realizadas</h4>
+<p>0</p>
+</div>
+
+<div class="card">
+<h4>Notificações</h4>
+<p id="notificacoesCount">0</p>
+</div>
+
+</div>
+
+<div class="alerts-grid">
+    <div class="alert-card">
+        <h3>Avisos importantes</h3>
+        <p id="alertaImportante">Carregando avisos importantes...</p>
     </div>
-
-    <div class="table-card">
-        <h3>📅 Próximos Atendimentos Agendados</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Data & Hora</th>
-                    <th>Médico</th>
-                    <th>Especialidade</th>
-                    <th>Prioridade Clínica</th>
-                    <th>Estado</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody id="tabelaProximasConsultas">
-                <tr>
-                    <td>15/07/2026 - 08:30</td>
-                    <td>Dr. João Mendes</td>
-                    <td>Clínica Geral</td>
-                    <td><span class="prioridade urgente">⚠️ Urgente</span></td>
-                    <td><span class="status done">Confirmada</span></td>
-                    <td>
-                        <a href="consultas.html" class="btn-action edit"><i class="fa fa-sync"></i> Gerir</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>18/07/2026 - 10:00</td>
-                    <td>Dra. Ana Rocha</td>
-                    <td>Cardiologia</td>
-                    <td><span class="prioridade media">🟢 Média</span></td>
-                    <td><span class="status pending">Em espera</span></td>
-                    <td>
-                        <a href="consultas.html" class="btn-action edit"><i class="fa fa-sync"></i> Gerir</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="notifications-card">
+        <h3>Últimas notificações</h3>
+        <div id="listaNotificacoes"></div>
     </div>
-
-    <div class="alerts-grid">
-        <div class="alert-card">
-            <h3>Avisos importantes</h3>
-            <p id="alertaImportante">Carregando avisos importantes...</p>
-        </div>
-        <div class="notifications-card">
-            <h3>Últimas notificações</h3>
-            <div id="listaNotificacoes"></div>
-        </div>
-    </div>
+</div>
 
 </div>
 
