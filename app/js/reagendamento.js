@@ -1,15 +1,23 @@
 const tbody = document.querySelector("#tabelaReagendamento tbody");
-
 let consultaSelecionada = null;
 
 listar();
 
-function listar(){
+function listar() {
+    if (!tbody) return;
+    tbody.innerHTML = "";
 
-    tbody.innerHTML="";
+    const consultas = obterConsultas();
+    
+    // Mostra apenas as consultas que podem ser reagendadas (ignora as já canceladas)
+    const filtradas = consultas.filter(c => c.estado !== "🔴 Cancelada");
 
-    obterConsultas().forEach(c=>{
+    if (filtradas.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:#718096;">Não existem consultas disponíveis para reagendar.</td></tr>`;
+        return;
+    }
 
+    filtradas.forEach(c => {
         tbody.innerHTML += `
         <tr>
             <td>${c.paciente}</td>
@@ -17,53 +25,61 @@ function listar(){
             <td>${c.especialidade}</td>
             <td>${c.data}</td>
             <td>${c.hora}</td>
+            <td><strong>${c.estado}</strong></td>
             <td>
-                <button onclick="selecionar(${c.id})">
-                    Selecionar
+                <button class="btn-alterar" onclick="selecionar(${c.id})">
+                    <i class="fa-solid fa-pen-to-square"></i> Selecionar
                 </button>
             </td>
         </tr>`;
-
     });
-
 }
 
-function selecionar(id){
+function selecionar(id) {
+    consultaSelecionada = id;
+    const consultas = obterConsultas();
+    const consulta = consultas.find(c => c.id == id);
 
-    consultaSelecionada=id;
-
+    if (consulta) {
+        // Coloca a data e hora atuais da consulta nos campos para o utilizador alterar
+        document.getElementById("editData").value = consulta.data;
+        document.getElementById("editHora").value = consulta.hora;
+        alert(`Consulta do(a) ${consulta.paciente} selecionada. Insira os novos dados nos campos acima.`);
+    }
 }
 
-function guardarEdicao(){
+function guardarEdicao() {
+    if (consultaSelecionada == null) {
+        alert("Por favor, selecione primeiro uma consulta na tabela abaixo.");
+        return;
+    }
 
-    if(consultaSelecionada==null){
-        alert("Selecione uma consulta.");
+    const novaData = document.getElementById("editData").value;
+    const novaHora = document.getElementById("editHora").value;
+
+    if (!novaData || !novaHora) {
+        alert("Preencha a nova data e hora.");
         return;
     }
 
     let consultas = obterConsultas();
 
-    consultas = consultas.map(c=>{
-
-        if(c.id==consultaSelecionada){
-
-            c.data=document.getElementById("editData").value;
-            c.hora=document.getElementById("editHora").value;
-
+    // Atualiza os dados da consulta mantendo o mesmo ID
+    consultas = consultas.map(c => {
+        if (c.id == consultaSelecionada) {
+            c.data = novaData;
+            c.hora = novaHora;
+            c.estado = "🟡 Reagendada"; // Muda o estado de Confirmada para Reagendada
         }
-
         return c;
-
     });
 
     guardarConsultas(consultas);
-
-    listar();
+    listar(); // Atualiza a tabela visualmente
 
     alert("✅ Consulta reagendada com sucesso!");
-
-    consultaSelecionada=null;
-
-    limparCampos();
-
+    
+    // Limpa a seleção e os campos
+    consultaSelecionada = null;
+    if(typeof limparCampos === "function") limparCampos();
 }
