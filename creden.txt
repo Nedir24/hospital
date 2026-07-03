@@ -1,1 +1,0 @@
-python backend/servidor.py
