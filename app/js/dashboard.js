@@ -1,7 +1,7 @@
 const utilizador = JSON.parse(localStorage.getItem("utilizador"));
 
 if (!utilizador) {
-    window.location.href = "login.html";
+    irParaLogin();
 }
 const consultas = carregar("consultas") || [];
 
@@ -61,3 +61,13 @@ ctx.lineTo(i * 60, 150 - valor * 10);
 
 ctx.strokeStyle = "#005baa";
 ctx.stroke();
+
+function irParaLogin() {
+    const caminho = window.location.pathname.replace(/\\/g, "/");
+    const estaEmSubpasta = caminho.includes("/Admin/") ||
+        caminho.includes("/Recepcionista/") ||
+        caminho.includes("/pacientes/") ||
+        caminho.includes("/medicos/");
+
+    window.location.href = estaEmSubpasta ? "../login.html" : "login.html";
+}

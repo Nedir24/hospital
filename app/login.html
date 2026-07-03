@@ -1,100 +1,94 @@
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Login - Hospital Agostinho Neto</title>
+    <title>Login - Hospital Agostinho Neto</title>
 
-<link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
 
 <body>
 
-<div class="container">
+    <div class="container">
 
-    <!-- LADO ESQUERDO -->
-    <div class="left-panel">
+        <!-- LADO ESQUERDO -->
+        <div class="left-panel">
 
-        <div class="logo-box">
-            <div class="branding">
-                <img src="../app/assets/img/logo.png" class="logo">
-                <h1>HAN</h1>
-            </div>
-
-            <p class="=p1">Hospital Agostinho Neto</p>
-                <p class="=p1">Sistema de Gestão Hospitalar</p>
-            
-        </div>
-
-        <img src="../app/assets/img/hospital.png" class="illustration">
-
-    </div>
-
-
-    <!-- LADO DIREITO -->
-    <div class="right-panel">
-
-        <div class="login-card">
-
-            <h2>Bem-vindo de volta!</h2>
-
-            <p>
-                Inicie sessão para continuar
-            </p>
-
-            <form id="loginForm">
-
-                <label>Email</label>
-
-                <input
-                type="email"
-                id="email"
-                placeholder="Digite o email"
-                required>
-
-                <label>Palavra-passe</label>
-
-                <input
-                type="password"
-                id="senha"
-                placeholder="Digite a palavra-passe"
-                required>
-
-                <div class="options">
-
-                    <label>
-                        <input type="checkbox" id="lembrar">
-                        Lembrar-me
-                    </label>
-
-                    <a href="esqueceu_senha.html">
-                        Esqueceu a senha?
-                    </a>
-
+            <div class="logo-box">
+                <div class="branding">
+                    <img src="../app/assets/img/logo.png" class="logo">
+                    <h1>HAN</h1>
                 </div>
 
-                <button type="submit">
-                    Entrar
-                </button>
+                <p class="=p1">Hospital Agostinho Neto</p>
+                <p class="=p1">Sistema de Gestão Hospitalar</p>
 
-            </form>
+            </div>
 
-            <p class="conta">
-                Não tem conta?
-                <a href="criar_conta.html">Criar conta</a>
-            </p>
+            <img src="../app/assets/img/hospital.png" class="illustration">
 
-            <p id="mensagem"></p>
+        </div>
+
+
+        <!-- LADO DIREITO -->
+        <div class="right-panel">
+
+            <div class="login-card">
+
+                <h2>Bem-vindo de volta!</h2>
+
+                <p>
+                    Inicie sessão para continuar
+                </p>
+
+                <form id="loginForm">
+
+                    <label>Email</label>
+
+                    <input type="email" id="email" placeholder="Digite o email" required>
+
+                    <label>Palavra-passe</label>
+
+                    <input type="password" id="senha" placeholder="Digite a palavra-passe" required>
+
+                    <div class="options">
+
+                        <label>
+                            <input type="checkbox" id="lembrar">
+                            Lembrar-me
+                        </label>
+
+                        <a href="esqueceu_senha.html">
+                            Esqueceu a senha?
+                        </a>
+
+                    </div>
+
+                    <button type="submit">
+                        Entrar
+                    </button>
+
+                </form>
+
+                <p class="conta">
+                    Não tem conta?
+                    <a href="criar_conta.html">Criar conta</a>
+                </p>
+
+                <p id="mensagem"></p>
+
+            </div>
 
         </div>
 
     </div>
 
-</div>
-
-<script src="js/login.js"></script>
+    <script src="./js/login.js" defer></script>
 
 </body>
+
 </html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pacientes - Rececionista</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<link href="recepcionista-styles.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="logo">
+    <img src="../assets/img/logo.png" alt="Logo HAN">
+    <span>HAN</span>
+  </div>
+
+  <a href="index.html" data-page="index">
+    <img src="../assets/icons/casa.png" alt=""> Painel Principal
+  </a>
+  <a href="pacientes.html" data-page="pacientes">
+    <img src="../assets/icons/perfil.png" alt=""> Pacientes
+  </a>
+  <a href="consultas.html" data-page="consultas">
+    <img src="../assets/icons/agendar.png" alt=""> Consultas
+  </a>
+  <a href="agenda.html" data-page="agenda">
+    <img src="../assets/icons/calendario.png" alt=""> Agenda Médica
+  </a>
+  <a href="presencas.html" data-page="presencas">
+    <img src="../assets/icons/check.png" alt=""> Confirmar Presença
+  </a>
+  <a href="notificacoes.html" data-page="notificacoes">
+    <img src="../assets/icons/notificacoes.png" alt=""> Notificações
+  </a>
+
+  <div class="bottom">
+    <div class="divider"></div>
+    <a class="logout" href="../login.html">
+      <img src="../assets/icons/sair.png" alt=""> Terminar sessão
+    </a>
+  </div>
+</div>
+
+<div class="main">
+  <div class="header">
+    <h2>Gestão de Pacientes</h2>
+    <button class="add-btn" type="button" onclick="abrirModal()">
+      <i class="fa fa-plus"></i> Adicionar Paciente
+    </button>
+  </div>
+  <div class="header-line"></div>
+
+  <div class="search-row">
+    <input id="pesquisaPaciente" type="text" placeholder="Pesquisar por nome, email ou telefone">
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <h4>Total de Pacientes</h4>
+      <p id="totalPacientes">0</p>
+    </div>
+    <div class="card">
+      <h4>Pacientes com Login</h4>
+      <p id="pacientesLogin">0</p>
+    </div>
+    <div class="card">
+      <h4>Novos este mês</h4>
+      <p id="novosMes">0</p>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <h3>Lista de Pacientes</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Email</th>
+          <th>Telefone</th>
+          <th>Tipo</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="pacientesTabela"></tbody>
+    </table>
+  </div>
+</div>
+
+<div id="modalPaciente" class="modal-overlay">
+  <div class="modal-card">
+    <button class="modal-close" type="button" onclick="fecharModal()">×</button>
+    <h3 id="modalTitle">Adicionar Paciente</h3>
+    <input id="pacienteNome" type="text" placeholder="Nome completo">
+    <input id="pacienteEmail" type="email" placeholder="Email">
+    <input id="pacienteTelefone" type="text" placeholder="Telefone">
+    <input id="pacienteSenha" type="password" placeholder="Senha">
+    <div class="modal-actions">
+      <button class="delete" type="button" onclick="fecharModal()">Cancelar</button>
+      <button class="add-btn" type="button" onclick="salvarPaciente()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<div id="modalHistorico" class="modal-overlay">
+  <div class="modal-card">
+    <button class="modal-close" type="button" onclick="fecharHistorico()">×</button>
+    <h3 id="historicoTitle">Histórico do Paciente</h3>
+    <div id="historicoConteudo"></div>
+  </div>
+</div>
+
+<script src="js/recepcionista-common.js"></script>
+<script src="js/pacientes.js"></script>
+</body>
+</html>
