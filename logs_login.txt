@@ -44,3 +44,6 @@ aline@gmail.com;LOGIN_SUCESSO;2026-07-03T10:35:52.167Z
 alytavares@gmail.com;LOGIN_SUCESSO;2026-07-03 10:03:29
 alytavares@gmail.com;LOGIN_SUCESSO;2026-07-03 10:29:29
 alytavares@gmail.com;LOGIN_SUCESSO;2026-07-03 10:35:52
+alytavares@gmail.com;LOGIN_SUCESSO;2026-07-03 10:39:21
+alytavares@gmail.com;LOGIN_SUCESSO;2026-07-03 10:47:46
+alytavares@gmail.com;LOGIN_SUCESSO;2026-07-03 10:53:22
