@@ -1,39 +1,69 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-<meta charset="UTF-8">
-<title>Agenda - Médico</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Médico - Agenda</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Segoe UI", sans-serif; }
+        body { display: flex; background: #f5f7fb; height: 100vh; }
+        .sidebar { width: 260px; background: #0b2a4a; color: #fff; display: flex; flex-direction: column; padding: 20px; height: 100vh; position: fixed; }
+        .logo { display: flex; align-items: center; gap: 10px; font-size: 22px; font-weight: bold; color: #fff; margin-bottom: 30px; }
+        .logo span { font-size: 32px; font-weight: bold; }
+        .logo img { width: 50px; height: 50px; object-fit: contain; }
+        .sidebar a { color: white; text-decoration: none; padding: 12px 15px; margin: 5px 0; display: flex; align-items: center; gap: 10px; border-radius: 8px; transition: 0.3s; font-size: 18px; }
+        .sidebar a:hover, .sidebar a.active { background: #163a63; color: #fff; }
+        .bottom { margin-top: auto; }
+        .sidebar .logout { color: #ff6b6b; display: flex; align-items: center; gap: 10px; padding: 12px 15px; border-radius: 8px; text-decoration: none; font-size: 18px;}
+        .divider { height: 1px; background: rgba(255,255,255,0.15); margin: 12px 0; }
+        .main { flex: 1; margin-left: 260px; padding: 25px; overflow-y: auto; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .header h2 { font-size: 20px; color: #333; }
+        .user-box { display: flex; align-items: center; gap: 15px; color: #555; }
+        .header-line { margin-left: -25px; margin-right: -25px; height: 1px; background: rgba(0,0,0,0.08); margin-bottom: 25px; }
+        .table-card { background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .table-card h3 { font-size: 16px; margin-bottom: 15px; color: #333; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px 15px; border-bottom: 1px solid #eee; font-size: 14px; text-align: left; }
+        th { color: #666; background: #f8f9fa; font-weight: 600; }
+        tr:hover td { background: #fbfcfe; }
+        .badge-status { padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; background: #d4edda; color: #155724; }
+        .badge-status.cancelada { background: #f8d7da; color: #721c24; }
+    </style>
 </head>
-
 <body>
+
 <div class="sidebar">
-  <h2>HAN</h2>
-  <a href="medico-dashboard.html">Dashboard</a>
-  <a href="medico-agenda.html">Agenda</a>
-  <a href="medico-pacientes.html">Pacientes</a>
-  <a href="medico-disponibilidade.html">Disponibilidade</a>
+    <div class="logo"><img src="../assets/img/logo.png" alt="Logo"><span>HAN</span></div>
+    <a href="index.html"><i class="fa fa-home"></i> Painel Principal</a>
+    <a href="pacientes.html"><i class="fa fa-user"></i> Pacientes</a>
+    <a href="agenda.html"><i class="fa fa-calendar"></i> Agenda</a>
+    <a href="disponibilidade.html"><i class="fa fa-clock"></i> Disponibilidade</a>
+    <a href="notificacao.html" class="active"><i class="fa fa-bell"></i> Notificações</a>
+    <div class="bottom"><div class="divider"></div><a class="logout" href="../login.html"><i class="fa fa-sign-out-alt"></i> Terminar sessão</a></div>
 </div>
 
 <div class="main">
-<h2>Minha Agenda</h2>
+    <div class="header">
+        <h2>Minha Agenda de Consultas</h2>
+        <div class="user-box"><i class="fa fa-user-circle"></i> <span>Dr. Mendes</span></div>
+    </div>
+    <div class="header-line"></div>
 
-<div class="table-card">
-<table>
-<tr>
-<th>Data</th>
-<th>Hora</th>
-<th>Paciente</th>
-<th>Status</th>
-</tr>
-
-<tbody id="agendaTabela">
-<!-- vindo da BD -->
-</tbody>
-
-</table>
+    <div class="table-card">
+        <h3>Lista Cronológica de Marcações</h3>
+        <table>
+            <thead>
+                <tr><th>Data Marcada</th><th>Hora</th><th>Paciente</th><th>Especialidade</th><th>Estado</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>10/07/2026</td><td>10:00</td><td>Lolo Medeiros</td><td>Cardiologia</td><td><span class="badge-status cancelada">Cancelada</span></td></tr>
+                <tr><td>25/07/2026</td><td>10:00</td><td>Carlos Alberto</td><td>Cardiologia</td><td><span class="badge-status">Ativa</span></td></tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
-</div>
 </body>
 </html>

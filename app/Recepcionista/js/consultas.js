@@ -1,51 +1,85 @@
+// =========================================================================
+// VARIÁVEIS GLOBAIS E ESTADO DA APLICAÇÃO
+// =========================================================================
 let consultas = [];
 let pacientes = [];
 let medicos = [];
 let consultaEmEdicao = null;
 
+// =========================================================================
+// INICIALIZADORES DE PÁGINA (ROTEAMENTO)
+// =========================================================================
+
+// Inicialização para a página de Gestão de Consultas / Dashboard
 async function initConsultas() {
     marcarSidebarAtiva("consultas");
     [consultas, pacientes, medicos] = await Promise.all([loadConsultas(), loadPacientes(), loadMedicos()]);
 
-    document.getElementById("pesquisaConsulta").addEventListener("input", renderTabela);
-    document.getElementById("filtroEstado").addEventListener("change", renderTabela);
+    // Configura os ouvintes de evento para filtros e busca
+    const pesquisaInput = document.getElementById("pesquisaConsulta");
+    const filtroSelect = document.getElementById("filtroEstado");
+
+    if (pesquisaInput) pesquisaInput.addEventListener("input", renderTabela);
+    if (filtroSelect) filtroSelect.addEventListener("change", renderTabela);
 
     preencherSelectPacientes();
     preencherSelectEspecialidades();
     renderTabela();
 }
 
+// Inicialização para a página de Listagem de Pacientes Ativos
+async function initPacientesAtivos() {
+    marcarSidebarAtiva("pacientes");
+    // Carrega em paralelo os dados necessários dos seus arquivos/APIs
+    [consultas, pacientes] = await Promise.all([loadConsultas(), loadPacientes()]);
+    
+    renderTabelaPacientesAtivos();
+}
+
+// =========================================================================
+// MÓDULO: GESTÃO DE CONSULTAS (DASHBOARD)
+// =========================================================================
+
 function preencherSelectPacientes() {
     const select = document.getElementById("consultaPaciente");
+    if (!select) return;
     select.innerHTML = '<option value="">Selecionar paciente</option>' +
         pacientes.map(p => `<option value="${escapeHtml(p.nome)}">${escapeHtml(p.nome)}</option>`).join("");
 }
 
 function preencherSelectEspecialidades() {
-    const especialidades = [...new Set(medicos.map(m => m.especialidade).filter(Boolean))];
     const select = document.getElementById("consultaEspecialidade");
+    if (!select) return;
+    const cacheEspecialidades = [...new Set(medicos.map(m => m.especialidade).filter(Boolean))];
     select.innerHTML = '<option value="">Selecionar especialidade</option>' +
-        especialidades.map(e => `<option value="${escapeHtml(e)}">${escapeHtml(e)}</option>`).join("");
+        cacheEspecialidades.map(e => `<option value="${escapeHtml(e)}">${escapeHtml(e)}</option>`).join("");
 }
 
 function preencherMedicosModal() {
     const esp = document.getElementById("consultaEspecialidade").value;
     const select = document.getElementById("consultaMedico");
+    if (!select) return;
     const filtrados = medicos.filter(m => !esp || m.especialidade === esp);
     select.innerHTML = '<option value="">Selecionar médico</option>' +
         filtrados.map(m => `<option value="${escapeHtml(m.nome)}" data-esp="${escapeHtml(m.especialidade)}">${escapeHtml(m.nome)}</option>`).join("");
 }
 
 function atualizarCards() {
-    document.getElementById("cardPendentes").innerText = consultas.filter(c => c.estado === "pendente").length;
-    document.getElementById("cardConfirmadas").innerText = consultas.filter(c => c.estado === "confirmada").length;
-    document.getElementById("cardCanceladas").innerText = consultas.filter(c => c.estado === "cancelada").length;
+    const cardPendentes = document.getElementById("cardPendentes");
+    const cardConfirmadas = document.getElementById("cardConfirmadas");
+    const cardCanceladas = document.getElementById("cardCanceladas");
+
+    if (cardPendentes) cardPendentes.innerText = consultas.filter(c => c.estado === "pendente").length;
+    if (cardConfirmadas) cardConfirmadas.innerText = consultas.filter(c => c.estado === "confirmada").length;
+    if (cardCanceladas) cardCanceladas.innerText = consultas.filter(c => c.estado === "cancelada").length;
 }
 
 function renderTabela() {
     const tbody = document.getElementById("tabelaConsultas");
-    const termo = document.getElementById("pesquisaConsulta").value.trim().toLowerCase();
-    const estado = document.getElementById("filtroEstado").value;
+    if (!tbody) return;
+
+    const termo = document.getElementById("pesquisaConsulta")?.value.trim().toLowerCase() || "";
+    const estado = document.getElementById("filtroEstado")?.value || "";
 
     let lista = consultas.slice().sort((a, b) => compareConsultas(a, b));
 
@@ -167,19 +201,86 @@ function verDetalhes(id) {
     const c = consultas.find(item => item.id === id);
     if (!c) return;
 
-    document.getElementById("detalhesConteudo").innerHTML = `
-        <p><strong>Paciente:</strong> ${escapeHtml(c.paciente)}</p>
-        <p><strong>Médico:</strong> ${escapeHtml(c.medico)}</p>
-        <p><strong>Especialidade:</strong> ${escapeHtml(c.especialidade || "—")}</p>
-        <p><strong>Data:</strong> ${formatDate(c.data)}</p>
-        <p><strong>Hora:</strong> ${escapeHtml(c.hora)}</p>
-        <p><strong>Estado:</strong> ${estadoBadge(c.estado)}</p>
-    `;
-    document.getElementById("modalDetalhes").style.display = "flex";
+    const modalDetalhes = document.getElementById("modalDetalhes");
+    const conteudo = document.getElementById("detalhesConteudo");
+
+    if (conteudo) {
+        conteudo.innerHTML = `
+            <p><strong>Paciente:</strong> ${escapeHtml(c.paciente)}</p>
+            <p><strong>Médico:</strong> ${escapeHtml(c.medico)}</p>
+            <p><strong>Especialidade:</strong> ${escapeHtml(c.especialidade || "—")}</p>
+            <p><strong>Data:</strong> ${formatDate(c.data)}</p>
+            <p><strong>Hora:</strong> ${escapeHtml(c.hora)}</p>
+            <p><strong>Estado:</strong> ${estadoBadge(c.estado)}</p>
+            <p><strong>Sintomas:</strong> ${escapeHtml(c.sintomas ? c.sintomas.join(', ') : "Não informados")}</p>
+        `;
+    }
+    if (modalDetalhes) modalDetalhes.style.display = "flex";
 }
 
 function fecharDetalhes() {
     document.getElementById("modalDetalhes").style.display = "none";
 }
 
-window.addEventListener("DOMContentLoaded", initConsultas);
+// =========================================================================
+// MÓDULO: LISTAGEM DE PACIENTES COM CONSULTA MARCADA (`pacientes.html`)
+// =========================================================================
+
+function renderTabelaPacientesAtivos() {
+    const tbody = document.getElementById("pacientesTabela");
+    if (!tbody) return; // Segurança para rodar apenas se o elemento existir na tela
+
+    tbody.innerHTML = "";
+
+    // Filtra consultas removendo as canceladas (mantém pendentes, confirmadas e realizadas se desejar)
+    const consultasAtivas = consultas.filter(c => c.estado !== "cancelada");
+
+    if (consultasAtivas.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:20px; color:#777;">Nenhum paciente com consulta ativa encontrado.</td></tr>`;
+        return;
+    }
+
+    // Filtro de Chave Única (Evita duplicar paciente na lista se ele tiver mais de um agendamento)
+    const mapaPacientes = new Map();
+
+    consultasAtivas.forEach(c => {
+        const dataFormatada = typeof formatDate === "function" ? formatDate(c.data) : c.data;
+        const sintomasTexto = c.sintomas && c.sintomas.length > 0 ? c.sintomas.join(', ') : "Rotina / Geral";
+        
+        // A chave em caixa baixa (.toLowerCase()) evita duplicações por erros de digitação
+        mapaPacientes.set(c.paciente.toLowerCase(), {
+            nomeOriginal: c.paciente,
+            sintomas: sintomasTexto,
+            agendaInfo: `${dataFormatada} às ${escapeHtml(c.hora)}`,
+            idConsulta: c.id
+        });
+    });
+
+    // Converte o mapa para linhas de tabela HTML
+    tbody.innerHTML = Array.from(mapaPacientes.values()).map(p => `
+        <tr>
+            <td style="text-transform: capitalize;"><strong>${escapeHtml(p.nomeOriginal)}</strong></td>
+            <td><span style="font-size:13px; color:#666;">${escapeHtml(p.sintomas)}</span></td>
+            <td>${p.agendaInfo}</td>
+            <td>
+                <button class="view" type="button" onclick="verDetalhes(${p.idConsulta})">
+                    <i class="fa fa-eye"></i> Detalhes
+                </button>
+            </td>
+        </tr>
+    `).join("");
+}
+
+// =========================================================================
+// GATILHO DE ROTEAMENTO EXECUTADO AO CARREGAR A PÁGINA
+// =========================================================================
+window.addEventListener("DOMContentLoaded", () => {
+    // 1. Se contiver a tabela padrão de consultas, inicializa fluxo do Dashboard
+    if (document.getElementById("tabelaConsultas")) {
+        initConsultas();
+    } 
+    // 2. Se contiver o ID da tabela de pacientes, inicializa o fluxo de listagem de Pacientes
+    else if (document.getElementById("pacientesTabela")) {
+        initPacientesAtivos();
+    }
+});

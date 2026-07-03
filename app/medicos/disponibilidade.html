@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Médico - Pacientes</title>
+    <title>Médico - Disponibilidade</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Segoe UI", sans-serif; }
@@ -22,14 +22,15 @@
         .header h2 { font-size: 20px; color: #333; }
         .user-box { display: flex; align-items: center; gap: 15px; color: #555; }
         .header-line { margin-left: -25px; margin-right: -25px; height: 1px; background: rgba(0,0,0,0.08); margin-bottom: 25px; }
-        .table-card { background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        .table-card h3 { font-size: 16px; margin-bottom: 15px; color: #333; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 12px 15px; border-bottom: 1px solid #eee; font-size: 14px; text-align: left; }
-        th { color: #666; background: #f8f9fa; font-weight: 600; }
-        tr:hover td { background: #fbfcfe; }
-        .btn-view { background: #0b2a4a; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 500; transition: 0.2s; }
-        .btn-view:hover { background: #163a63; }
+        
+        .form-card { background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 25px; border-top: 4px solid #0b2a4a; }
+        .form-card h3 { font-size: 16px; color: #0b2a4a; margin-bottom: 15px; }
+        .form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 15px; }
+        .form-group label { font-size: 13px; color: #555; font-weight: 500; }
+        .form-group input { padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; width: 100%; outline: none; transition: 0.2s; }
+        .form-group input:focus { border-color: #0b2a4a; box-shadow: 0 0 0 3px rgba(11, 42, 74, 0.1); }
+        .btn-save { background: #0b2a4a; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 500; transition: 0.2s; }
+        .btn-save:hover { background: #163a63; }
     </style>
 </head>
 <body>
@@ -46,22 +47,24 @@
 
 <div class="main">
     <div class="header">
-        <h2>Meus Pacientes Ativos</h2>
+        <h2>Definições de Horário Técnico</h2>
         <div class="user-box"><i class="fa fa-user-circle"></i> <span>Dr. Mendes</span></div>
     </div>
     <div class="header-line"></div>
 
-    <div class="table-card">
-        <h3>Fichas Clínicas sob Responsabilidade</h3>
-        <table>
-            <thead>
-                <tr><th>Nome</th><th>Diagnóstico Clínico Principal</th><th>Última Consulta</th><th>Ações</th></tr>
-            </thead>
-            <tbody>
-                <tr><td><b>Carlos Alberto</b></td><td>Insuficiência Cardíaca Leve</td><td>02/07/2026</td><td><button class="btn-view"><i class="fa fa-folder-open"></i> Abrir Histórico</button></td></tr>
-                <tr><td><b>Lolo Medeiros</b></td><td>Check-up Geral / Rotina</td><td>30/06/2026</td><td><button class="btn-view"><i class="fa fa-folder-open"></i> Abrir Histórico</button></td></tr>
-            </tbody>
-        </table>
+    <div class="form-card">
+        <h3>Atualizar Meus Dias & Turnos Clínicos</h3>
+        <form>
+            <div class="form-group">
+                <label>Dias Semanais Permitidos</label>
+                <input type="text" value="Segunda a Sexta-feira">
+            </div>
+            <div class="form-group">
+                <label>Janela Horária de Atendimento</label>
+                <input type="text" value="08:00 - 13:00">
+            </div>
+            <button type="button" class="btn-save"><i class="fa fa-save"></i> Guardar Alterações</button>
+        </form>
     </div>
 </div>
 
