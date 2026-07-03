@@ -24,22 +24,19 @@ async function carregarMedicos() {
 }
 
 async function carregarConsultas() {
-    try {
-        const res = await fetch(`${API_URL}/consultas`);
-        if (!res.ok) throw new Error();
-        consultas = await res.json();
-    } catch (error) {
-        try {
-            const fallback = await fetch("../../consultas.txt");
-            const text = await fallback.text();
-            consultas = JSON.parse(text);
-        } catch (fallbackError) {
-            consultas = [];
-        }
+
+    const local = localStorage.getItem("consultas");
+
+    if(local){
+        consultas = JSON.parse(local);
+    }else{
+        const resposta = await fetch("../../consultas.txt");
+        consultas = await resposta.json();
+        localStorage.setItem("consultas", JSON.stringify(consultas));
     }
+
     renderTabela();
 }
-
 function renderTabela() {
     tbody.innerHTML = "";
 
@@ -102,44 +99,40 @@ function carregarHorarios() {
     });
 }
 
-async function guardarEdicao() {
-    if (!consultaSelecionada) {
-        alert("Selecione uma consulta para reagendar.");
+function guardarEdicao(){
+
+    if(!consultaSelecionada){
+        alert("Selecione uma consulta.");
         return;
     }
 
     const data = document.getElementById("editData").value;
     const hora = document.getElementById("editHora").value;
 
-    if (!data || !hora) {
-        alert("Escolha uma nova data e hora.");
+    if(data==="" || hora===""){
+        alert("Escolha uma nova data e horário.");
         return;
     }
 
-    try {
-        const resposta = await fetch(`${API_URL}/consultas/${consultaSelecionada.id}`, {
-            method: "PATCH",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ data, hora })
-        });
+    const indice = consultas.findIndex(c=>c.id===consultaSelecionada.id);
 
-        if (!resposta.ok) {
-            const erro = await resposta.json().catch(() => ({}));
-            throw new Error(erro.mensagem || "Não foi possível reagendar a consulta.");
-        }
+    consultas[indice].data = data;
+    consultas[indice].hora = hora;
 
-        const resultado = await resposta.json();
-        consultaSelecionada = null;
-        document.getElementById("editData").value = "";
-        document.getElementById("editHora").innerHTML = `<option value="">Selecionar hora</option>`;
-        document.getElementById("selecionadoPaciente").innerText = "-";
-        document.getElementById("selecionadoMedico").innerText = "-";
-        document.getElementById("selecionadoEspecialidade").innerText = "-";
-        await carregarConsultas();
-        alert("Consulta reagendada com sucesso.");
-    } catch (error) {
-        alert(error.message);
-    }
+    localStorage.setItem("consultas",JSON.stringify(consultas));
+
+    alert("Consulta reagendada com sucesso.");
+
+    consultaSelecionada=null;
+
+    document.getElementById("selecionadoPaciente").innerHTML="-";
+    document.getElementById("selecionadoMedico").innerHTML="-";
+    document.getElementById("selecionadoEspecialidade").innerHTML="-";
+
+    document.getElementById("editData").value="";
+    document.getElementById("editHora").innerHTML="<option value=''>Selecionar hora</option>";
+
+    renderTabela();
+
 }
-
 window.addEventListener("DOMContentLoaded", initReagendamento);

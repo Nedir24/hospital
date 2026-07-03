@@ -1,5 +1,22 @@
 const API_URL = "http://127.0.0.1:5000";
 
+const utilizadorLogado = JSON.parse(localStorage.getItem("utilizador") || "null");
+const tipoUtilizador = String(utilizadorLogado?.tipo || "").toLowerCase();
+
+if (!utilizadorLogado || !["rececao", "recepcionista", "admin"].includes(tipoUtilizador)) {
+    window.location.href = "../login.html";
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const logout = document.querySelector(".logout");
+    if (!logout) return;
+
+    logout.addEventListener("click", () => {
+        localStorage.removeItem("utilizador");
+        localStorage.removeItem("email");
+    });
+});
+
 async function loadConsultas() {
     try {
         const res = await fetch(`${API_URL}/consultas`);

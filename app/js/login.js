@@ -1,4 +1,6 @@
 window.addEventListener("DOMContentLoaded", () => {
+    localStorage.removeItem("utilizador");
+
     const form = document.getElementById("loginForm");
     if (!form) {
         console.error("loginForm não encontrado");
@@ -30,14 +32,15 @@ window.addEventListener("DOMContentLoaded", () => {
                     localStorage.removeItem("email");
                 }
 
+                const tipo = String(dados.tipo || "").toLowerCase();
                 const utilizador = { ...dados, email };
                 localStorage.setItem("utilizador", JSON.stringify(utilizador));
 
-                if (email.toLowerCase() === "admin@hospital.cv") {
+                if (tipo === "admin") {
                     window.location.href = "Admin/index.html";
-                } if (email.toLowerCase() === "rececao@hospital.cv") {
+                } else if (tipo === "rececao") {
                     window.location.href = "Recepcionista/index.html";
-                }else {
+                } else {
                     window.location.href = "pacientes/index.html";
                 }
             } else {
@@ -53,9 +56,8 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 window.addEventListener("load", () => {
-    const emailGuardado = localStorage.getItem("email");
-    if (emailGuardado) {
-        document.getElementById("email").value = emailGuardado;
-        document.getElementById("lembrar").checked = true;
-    }
+    localStorage.removeItem("email");
+    document.getElementById("email").value = "";
+    document.getElementById("senha").value = "";
+    document.getElementById("lembrar").checked = false;
 });

@@ -5,6 +5,7 @@ import os
 import json
 import random
 import time
+import unicodedata
 from datetime import datetime
 
 app = Flask(__name__)
@@ -66,6 +67,17 @@ def carregar_json(caminho):
 def guardar_json(caminho, dados):
     with open(caminho, "w", encoding="utf-8") as f:
         json.dump(dados, f, ensure_ascii=False, indent=2)
+
+
+def normalizar_tipo(tipo):
+    texto = unicodedata.normalize("NFD", tipo or "")
+    texto = texto.encode("ascii", "ignore").decode("ascii").lower().replace(" ", "")
+
+    if texto in ("admin", "administrador"):
+        return "admin"
+    if texto in ("rececao", "recepcao", "recepcionista"):
+        return "rececao"
+    return "utilizador"
 
 
 @app.route("/medicos", methods=["GET"])
@@ -385,6 +397,7 @@ def login():
 
             email_bd = None
             senha_bd = None
+            tipo_bd = "utilizador"
             nome_bd = campos[0]
 
             if len(campos) >= 7:
@@ -396,7 +409,8 @@ def login():
             elif len(campos) == 5:
                 # Suporte a linhas com 5 campos antigas ou personalizadas
                 email_bd = campos[1].lower()
-                senha_bd = campos[4]
+                senha_bd = campos[3]
+                tipo_bd = normalizar_tipo(campos[4])
 
             if email_bd == email and senha_bd == senha:
 
@@ -404,7 +418,7 @@ def login():
 
                 return jsonify({
                     "sucesso": True,
-                    "tipo": "utilizador",
+                    "tipo": tipo_bd,
                     "nome": nome_bd
                 })
 

@@ -413,7 +413,7 @@ function carregarEspecialidades() {
 async function cancelar(id) {
     if (!confirm("Tem certeza que deseja cancelar esta consulta?")) return;
     try {
-        // Tenta atualizar no backend, cai no catch local se não houver servidor rodando
+        // Tenta atualizar no servidor.py, cai no catch local se não houver servidor rodando.
         try {
             const resultado = await atualizarConsultaBackend(id, { estado: "cancelada" });
             consultas = consultas.map(c => c.id === id ? resultado.consulta : c);
