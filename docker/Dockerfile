@@ -2,12 +2,12 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-COPY requirements.txt .
-RUN pip install -r requirements.txt
+RUN pip install flask flask-cors flask-mail
 
 COPY app/ app/
-COPY wsgi.py .
+COPY *.txt ./
+COPY backend/ backend/
 
 EXPOSE 5000
 
-CMD ["gunicorn", "-b", "0.0.0.0:5000", "wsgi:app"]
+CMD ["python", "backend/servidor.py"]
